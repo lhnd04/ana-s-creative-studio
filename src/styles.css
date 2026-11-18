@@ -70,6 +70,20 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Ana Prado Make Up — paleta da marca */
+  --color-bg: var(--brand-bg);
+  --color-skin: var(--brand-skin);
+  --color-ink: var(--brand-ink);
+  --color-muted-ink: var(--brand-muted-ink);
+  --color-brown: var(--brand-brown);
+  --color-gold: var(--brand-gold);
+  --color-gold-dark: var(--brand-gold-dark);
+  --color-footer: var(--brand-footer);
+  --color-footer-line: var(--brand-footer-line);
+
+  --font-serif: "Cormorant Garamond", serif;
+  --font-sans: "Inter", sans-serif;
 }
 
 :root {
@@ -106,6 +120,18 @@
   --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
   --sidebar-border: oklch(0.929 0.013 255.508);
   --sidebar-ring: oklch(0.704 0.04 256.788);
+
+  /* Ana Prado Make Up — paleta da marca (valores de origem: #FAF6F2, #EFDFD1,
+     #231E1C, #5E5550, #5C3A28, #86672C, #C9A66B, #0F0D0C, #4A3F3A) */
+  --brand-bg: oklch(from #faf6f2 l c h);
+  --brand-skin: oklch(from #efdfd1 l c h);
+  --brand-ink: oklch(from #231e1c l c h);
+  --brand-muted-ink: oklch(from #5e5550 l c h);
+  --brand-brown: oklch(from #5c3a28 l c h);
+  --brand-gold: oklch(from #86672c l c h);
+  --brand-gold-dark: oklch(from #c9a66b l c h);
+  --brand-footer: oklch(from #0f0d0c l c h);
+  --brand-footer-line: oklch(from #4a3f3a l c h);
 }
 
 .dark {
@@ -152,4 +178,195 @@
     background-color: var(--color-background);
     color: var(--color-foreground);
   }
+}
+
+/* Ana Prado Make Up — animações e utilitários específicos do site */
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@layer utilities {
+  .fade-up {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .fade-up.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Hero */
+@keyframes heroAmbientZoom {
+  from { transform: scale(1); }
+  to { transform: scale(1.05); }
+}
+.hero-ambient-zoom {
+  transform-origin: center;
+  animation: heroAmbientZoom 13s ease-in-out infinite alternate;
+}
+
+@keyframes heroPhotoEnter {
+  from { transform: scale(1.06); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+.hero-photo-enter {
+  transform-origin: center;
+  opacity: 0;
+  animation: heroPhotoEnter 1.3s ease forwards;
+}
+
+@keyframes slideDownFade {
+  from { opacity: 0; transform: translateY(-14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.logo-fade-slide {
+  opacity: 0;
+  animation: slideDownFade 0.8s ease 0.1s forwards;
+}
+
+@keyframes lineOpen {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+.logo-line-open {
+  transform: scaleX(0);
+  animation: lineOpen 0.7s ease 0.55s forwards;
+}
+
+@keyframes titleLineUp {
+  from { opacity: 0; transform: translateY(26px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.hero-line {
+  opacity: 0;
+  animation: titleLineUp 0.85s ease forwards;
+}
+
+@keyframes shineSweep {
+  from { transform: translateX(-130%) skewX(-12deg); }
+  to { transform: translateX(160%) skewX(-12deg); }
+}
+.gold-shine {
+  position: relative;
+  display: inline-block;
+}
+.gold-shine::after {
+  content: "";
+  position: absolute;
+  inset: -2px -6px;
+  background: linear-gradient(
+    100deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.75) 50%,
+    transparent 70%
+  );
+  transform: translateX(-130%) skewX(-12deg);
+  animation: shineSweep 1.4s ease 1.6s 1;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+@keyframes badgeIn {
+  from { opacity: 0; transform: rotate(-10deg) scale(0.9); }
+  to { opacity: 1; transform: rotate(0deg) scale(1); }
+}
+.badge-in {
+  opacity: 0;
+  animation: badgeIn 0.6s ease forwards;
+}
+
+@keyframes goldGlint {
+  0%, 85%, 100% { filter: drop-shadow(0 0 0 rgba(201, 166, 107, 0)); }
+  92% { filter: drop-shadow(0 0 6px rgba(201, 166, 107, 0.9)); }
+}
+.gold-glint {
+  animation: goldGlint 4.5s ease-in-out infinite;
+}
+
+@keyframes heroFadeIn {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.hero-fade-in {
+  opacity: 0;
+  animation: heroFadeIn 0.8s ease forwards;
+}
+
+/* Decorative floating shapes */
+@keyframes floatSlowA {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(6px, -12px) rotate(4deg); }
+}
+@keyframes floatSlowB {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(-8px, 10px) rotate(-5deg); }
+}
+@keyframes floatSlowC {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(5px, 8px) rotate(3deg); }
+}
+.float-a { animation: floatSlowA 10s ease-in-out infinite; }
+.float-b { animation: floatSlowB 13s ease-in-out infinite; }
+.float-c { animation: floatSlowC 9s ease-in-out infinite; }
+
+/* Floating WhatsApp button */
+@keyframes whatsappPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(201, 166, 107, 0.45); }
+  8% { box-shadow: 0 0 0 12px rgba(201, 166, 107, 0); }
+  20% { box-shadow: 0 0 0 0 rgba(201, 166, 107, 0); }
+}
+.whatsapp-pulse {
+  animation: whatsappPulse 4.5s ease-out infinite;
+}
+
+.whatsapp-floating {
+  transition: opacity 0.2s ease;
+}
+body:has([role="dialog"]) .whatsapp-floating {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Sobre — cartão 3D */
+.card-enter-3d {
+  opacity: 0;
+  transform: translateY(40px) rotateX(-14deg);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+  transform-style: preserve-3d;
+}
+.card-enter-3d.is-visible {
+  opacity: 1;
+  transform: translateY(0) rotateX(0deg);
+}
+.card-tilt {
+  transition: transform 0.25s ease-out;
+  transform-style: preserve-3d;
+}
+.sobre-bg-parallax {
+  transition: transform 0.3s ease-out;
 }

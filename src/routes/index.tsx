@@ -1,23 +1,50 @@
 import { createFileRoute } from "@tanstack/react-router";
+import Header from "@/components/site/Header";
+import Hero from "@/components/site/Hero";
+import About from "@/components/site/About";
+import Portfolio from "@/components/site/Portfolio";
+import VideoResult from "@/components/site/VideoResult";
+import InstagramSection from "@/components/site/InstagramSection";
+import SalonCTA from "@/components/site/SalonCTA";
+import Footer from "@/components/site/Footer";
+import WhatsappFloatingButton from "@/components/site/WhatsappFloatingButton";
 
-// The home route ships no og:image, so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "Ana Prado Make Up | Maquiagem profissional" },
+      {
+        name: "description",
+        content:
+          "Maquiagem profissional em Santo Ângelo com Ana Prado: técnica, produtos testados e atenção a cada detalhe.",
+      },
+      { property: "og:title", content: "Ana Prado Make Up | Maquiagem profissional" },
+      {
+        property: "og:description",
+        content:
+          "Maquiagem profissional em Santo Ângelo com Ana Prado: técnica, produtos testados e atenção a cada detalhe.",
+      },
+      { property: "og:image", content: "/images/hero.jpg" },
+      { property: "og:locale", content: "pt_BR" },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <>
+      <Header />
+      <main>
+        <Hero />
+        <About />
+        <Portfolio />
+        <VideoResult />
+        <InstagramSection />
+        <SalonCTA />
+      </main>
+      <Footer />
+      <WhatsappFloatingButton />
+    </>
   );
 }
